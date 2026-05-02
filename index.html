@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link Bio - Kombi Sapeca</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        body {
+            background-color: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            font-family: 'Segoe UI', sans-serif;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 30px 20px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 255, 0, 0.2);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.15);
+        }
+
+        .profile-pic {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            box-shadow: 0 0 20px #fff;
+            margin-bottom: 15px;
+            object-fit: cover;
+        }
+
+        .bio-text {
+            color: #e0e0e0;
+            font-size: 0.75rem;
+            line-height: 1.4;
+            margin: 0 auto 15px auto;
+            text-align: center;
+            max-width: 90%;
+            opacity: 0.85;
+        }
+
+        .username {
+            color: #0F0;
+            display: block;
+            font-weight: bold;
+            margin-top: 15px;
+            font-size: 1.8rem;
+            text-shadow: 0 0 10px #0F0, 0 0 20px rgba(0, 255, 0, 0.5);
+            letter-spacing: 1px;
+        }
+
+        .link-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            padding: 16px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+            border-radius: 50px;
+            border: 2px solid;
+            transition: all 0.4s ease;
+            background: rgba(0, 0, 0, 0.9);
+            text-transform: uppercase;
+        }
+
+        /* Aumento de 20% nos ícones (de 22px para 27px) */
+        .btn i {
+            font-size: 27px;
+        }
+
+        /* Cores Oficiais Neon */
+        .btn-youtube { color: #FF0000; border-color: #FF0000; text-shadow: 0 0 5px #FF0000; }
+        .btn-youtube:hover { background: #FF0000; color: #fff; box-shadow: 0 0 30px #FF0000; }
+
+        .btn-instagram { color: #E1306C; border-color: #E1306C; text-shadow: 0 0 5px #E1306C; }
+        .btn-instagram:hover { background: #E1306C; color: #fff; box-shadow: 0 0 30px #E1306C; }
+
+        .btn-facebook { color: #1877F2; border-color: #1877F2; text-shadow: 0 0 5px #1877F2; }
+        .btn-facebook:hover { background: #1877F2; color: #fff; box-shadow: 0 0 30px #1877F2; }
+
+    </style>
+</head>
+<body>
+
+    <canvas id="matrix-bg"></canvas>
+
+    <div class="container">
+        <img src="sapeca.jpg" alt="Alexandre" class="profile-pic">
+        
+        <div class="bio-text">
+            Foi em 2022, que decidi comprar uma Kombi e transformada em um Motohome, influenciado pelo meu irmão que montou a dele na pandemia, demorou um ano para ficar pronta, dai fiz vários passeios com ela, até ficar 30 dias descendo o litoral sul da Bahia.
+            <span class="username">@kombisapeca</span>
+        </div>
+
+        <div class="link-container">
+            <a href="https://www.youtube.com/@KombiSapeca" class="btn btn-youtube" target="_blank">
+                <i class="fa-brands fa-youtube"></i> YouTube
+            </a>
+
+            <a href="URL_DO_INSTAGRAM" class="btn btn-instagram" target="_blank">
+                <i class="fa-brands fa-instagram"></i> Instagram
+            </a>
+
+            <a href="URL_DO_FACEBOOK" class="btn btn-facebook" target="_blank">
+                <i class="fa-brands fa-facebook-f"></i> Facebook
+            </a>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('matrix-bg');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const alphabet = "日Hｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ1234567890";
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+        const rainDrops = Array.from({ length: columns }).fill(canvas.height);
+
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#0F0'; 
+            ctx.font = fontSize + 'px monospace';
+            for (let i = 0; i < rainDrops.length; i++) {
+                const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+                ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
+                if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    rainDrops[i] = 0;
+                }
+                rainDrops[i]++;
+            }
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        setInterval(draw, 35);
+    </script>
+</body>
+</html>
